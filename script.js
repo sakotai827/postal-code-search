@@ -44,7 +44,7 @@ function displayResults(data) {
             data[prefecture].forEach(function(item) {
                 let div = document.createElement('div');
                 div.className = 'result-item';
-                div.textContent = '〒' + formatPostalCode(item.postal_code) + ' ' + item.address;
+                div.textContent = formatPostalCode(item.postal_code) + ' ' + item.address;
                 div.addEventListener('click', function() {
                     handleResultClick(item.postal_code);
                 });
