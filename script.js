@@ -71,7 +71,7 @@ function displayResults(data) {
 
 function handleResultClick(postalCode) {
     var formattedCode = formatPostalCode(postalCode);
-    document.getElementById('selected-postal-code').textContent = '〒' + formattedCode;
+    document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
     document.getElementById('selected-postal-code').scrollIntoView({behavior: 'smooth'});
 }
