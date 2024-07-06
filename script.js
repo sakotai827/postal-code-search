@@ -17,7 +17,9 @@ function formatPostalCode(code) {
 function searchPostalCode(searchWord) {
     let results = {};
     for (let prefecture in postalData) {
-        let matching = postalData[prefecture].filter(item => item.address.includes(searchWord));
+        let matching = postalData[prefecture].filter(item => 
+            item.address.includes(searchWord) || item.postal_code.includes(searchWord)
+        );
         if (matching.length > 0) {
             results[prefecture] = matching;
         }
