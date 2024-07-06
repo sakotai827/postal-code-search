@@ -81,7 +81,7 @@ function handleResultClick(postalCode) {
     document.getElementById('copy-button').style.display = 'inline-block';
     
     // ハイフンを除去した郵便番号で検索
-    var searchCode = postalCode.replace('-', '');
+    var searchCode = postalCode
     console.log('検索する郵便番号:', searchCode);
     console.log('branchDataの内容:', branchData);
     
