@@ -1,12 +1,14 @@
 let postalData = null;
+let branchData = null;
 
-fetch('postal_codes.json')
-    .then(response => response.json())
-    .then(data => {
-        postalData = data;
-        console.log('郵便番号データを読み込みました');
-    })
-    .catch(error => console.error('データの読み込みに失敗しました:', error));
+Promise.all([
+    fetch('postal_codes.json').then(response => response.json()),
+    fetch('branch_codes.json').then(response => response.json())
+]).then(([postalCodes, branchCodes]) => {
+    postalData = postalCodes;
+    branchData = branchCodes;
+    console.log('データを読み込みました');
+}).catch(error => console.error('データの読み込みに失敗しました:', error));
 
 function formatPostalCode(code) {
     return code.slice(0, 3) + '-' + code.slice(3);
@@ -73,6 +75,15 @@ function handleResultClick(postalCode) {
     var formattedCode = formatPostalCode(postalCode);
     document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
+    
+    if (branchData[postalCode]) {
+        document.getElementById('branch-code').querySelector('span').textContent = branchData[postalCode].branchCode;
+        document.getElementById('branch-name').querySelector('span').textContent = branchData[postalCode].branchName;
+    } else {
+        document.getElementById('branch-code').querySelector('span').textContent = '該当なし';
+        document.getElementById('branch-name').querySelector('span').textContent = '該当なし';
+    }
+    
     document.getElementById('selected-postal-code').scrollIntoView({behavior: 'smooth'});
 }
 
