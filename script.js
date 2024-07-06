@@ -7,7 +7,8 @@ Promise.all([
 ]).then(([postalCodes, branchCodes]) => {
     postalData = postalCodes;
     branchData = branchCodes;
-    console.log('データを読み込みました');
+    console.log('郵便番号データを読み込みました:', postalData);
+    console.log('支社コードデータを読み込みました:', branchData);
 }).catch(error => console.error('データの読み込みに失敗しました:', error));
 
 function formatPostalCode(code) {
@@ -81,25 +82,21 @@ function handleResultClick(postalCode) {
     
     // ハイフンを除去した郵便番号で検索
     var searchCode = postalCode.replace('-', '');
+    console.log('検索する郵便番号:', searchCode);
+    console.log('branchDataの内容:', branchData);
+    
     if (branchData[searchCode]) {
+        console.log('一致する支社データが見つかりました:', branchData[searchCode]);
         document.getElementById('branch-code').querySelector('span').textContent = branchData[searchCode].branchCode;
         document.getElementById('branch-name').querySelector('span').textContent = branchData[searchCode].branchName;
     } else {
+        console.log('一致する支社データが見つかりませんでした');
         document.getElementById('branch-code').querySelector('span').textContent = '該当なし';
         document.getElementById('branch-name').querySelector('span').textContent = '該当なし';
     }
     
     document.getElementById('selected-postal-code').scrollIntoView({behavior: 'smooth'});
 }
-
-document.getElementById('copy-button').addEventListener('click', function() {
-    var postalCode = document.getElementById('selected-postal-code').textContent;
-    navigator.clipboard.writeText(postalCode).then(function() {
-        alert('郵便番号をコピーしました: ' + postalCode);
-    }, function(err) {
-        console.error('コピーに失敗しました: ', err);
-    });
-});
 
 window.onscroll = function() {
     var scrollToTopBtn = document.getElementById("scroll-to-top");
