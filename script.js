@@ -16,9 +16,10 @@ function formatPostalCode(code) {
 
 function searchPostalCode(searchWord) {
     let results = {};
+    searchWord = searchWord.replace('-', ''); // ハイフンを除去
     for (let prefecture in postalData) {
         let matching = postalData[prefecture].filter(item => 
-            item.address.includes(searchWord) || item.postal_code.includes(searchWord)
+            item.address.includes(searchWord) || item.postal_code.replace('-', '').includes(searchWord)
         );
         if (matching.length > 0) {
             results[prefecture] = matching;
@@ -78,9 +79,11 @@ function handleResultClick(postalCode) {
     document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
     
-    if (branchData[postalCode]) {
-        document.getElementById('branch-code').querySelector('span').textContent = branchData[postalCode].branchCode;
-        document.getElementById('branch-name').querySelector('span').textContent = branchData[postalCode].branchName;
+    // ハイフンを除去した郵便番号で検索
+    var searchCode = postalCode.replace('-', '');
+    if (branchData[searchCode]) {
+        document.getElementById('branch-code').querySelector('span').textContent = branchData[searchCode].branchCode;
+        document.getElementById('branch-name').querySelector('span').textContent = branchData[searchCode].branchName;
     } else {
         document.getElementById('branch-code').querySelector('span').textContent = '該当なし';
         document.getElementById('branch-name').querySelector('span').textContent = '該当なし';
