@@ -80,7 +80,6 @@ function handleResultClick(postalCode) {
     document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
     
-    // ハイフンを除去した郵便番号で検索
     var searchCode = postalCode
     console.log('検索する郵便番号:', searchCode);
     console.log('branchDataの内容:', branchData);
@@ -97,6 +96,15 @@ function handleResultClick(postalCode) {
     
     document.getElementById('selected-postal-code').scrollIntoView({behavior: 'smooth'});
 }
+
+document.getElementById('copy-button').addEventListener('click', function() {
+    var postalCode = document.getElementById('selected-postal-code').textContent;
+    navigator.clipboard.writeText(postalCode).then(function() {
+        alert('郵便番号をコピーしました: ' + postalCode);
+    }, function(err) {
+        console.error('コピーに失敗しました: ', err);
+    });
+});
 
 window.onscroll = function() {
     var scrollToTopBtn = document.getElementById("scroll-to-top");
