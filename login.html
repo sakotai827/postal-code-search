@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ログイン</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>管理者ログイン</h1>
+    <div id="login-container">
+        <input type="text" id="employee-id" placeholder="社員番号を入力してください">
+        <button id="login-button">ログイン</button>
+    </div>
+    <script>
+        document.getElementById('login-button').addEventListener('click', function() {
+            const employeeId = document.getElementById('employee-id').value;
+            // 実際のアプリケーションでは、サーバーサイドで認証を行うべきです
+            if (employeeId === '044160') { // 仮の社員番号
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                alert('社員番号が正しくありません。');
+            }
+        });
+    </script>
+</body>
+</html>
+    
