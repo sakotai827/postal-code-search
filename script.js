@@ -80,13 +80,14 @@ function handleResultClick(postalCode) {
     document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
     
-    console.log('検索する郵便番号:', formattedCode);
+    var searchCode = postalCode
+    console.log('検索する郵便番号:', searchCode);
     console.log('branchDataの内容:', branchData);
     
-    if (branchData[formattedCode]) {
-        console.log('一致する支社データが見つかりました:', branchData[formattedCode]);
-        document.getElementById('branch-code').querySelector('span').textContent = branchData[formattedCode].branchCode;
-        document.getElementById('branch-name').querySelector('span').textContent = branchData[formattedCode].branchName;
+    if (branchData[searchCode]) {
+        console.log('一致する支社データが見つかりました:', branchData[searchCode]);
+        document.getElementById('branch-code').querySelector('span').textContent = branchData[searchCode].branchCode;
+        document.getElementById('branch-name').querySelector('span').textContent = branchData[searchCode].branchName;
     } else {
         console.log('一致する支社データが見つかりませんでした');
         document.getElementById('branch-code').querySelector('span').textContent = '該当なし';
