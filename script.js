@@ -17,7 +17,7 @@ function formatPostalCode(code) {
 
 function searchPostalCode(searchWord) {
     let results = {};
-    searchWord = searchWord.replace('-', '');
+    searchWord = searchWord.replace('-', ''); // ハイフンを除去
     for (let prefecture in postalData) {
         let matching = postalData[prefecture].filter(item => 
             item.address.includes(searchWord) || item.postal_code.replace('-', '').includes(searchWord)
@@ -106,10 +106,6 @@ document.getElementById('copy-button').addEventListener('click', function() {
     });
 });
 
-document.getElementById('admin-login-button').addEventListener('click', function() {
-    window.location.href = 'login.html';
-});
-
 window.onscroll = function() {
     var scrollToTopBtn = document.getElementById("scroll-to-top");
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -122,6 +118,7 @@ window.onscroll = function() {
 document.getElementById("scroll-to-top").onclick = function() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 };
+
 
 // ログイン状態をチェックし、ログアウトボタンの表示を制御する関数
 function checkLoginStatus() {
