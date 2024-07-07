@@ -17,7 +17,7 @@ function formatPostalCode(code) {
 
 function searchPostalCode(searchWord) {
     let results = {};
-    searchWord = searchWord.replace('-', ''); // ハイフンを除去
+    searchWord = searchWord.replace('-', '');
     for (let prefecture in postalData) {
         let matching = postalData[prefecture].filter(item => 
             item.address.includes(searchWord) || item.postal_code.replace('-', '').includes(searchWord)
@@ -80,14 +80,13 @@ function handleResultClick(postalCode) {
     document.getElementById('selected-postal-code').textContent = formattedCode;
     document.getElementById('copy-button').style.display = 'inline-block';
     
-    var searchCode = postalCode
-    console.log('検索する郵便番号:', searchCode);
+    console.log('検索する郵便番号:', formattedCode);
     console.log('branchDataの内容:', branchData);
     
-    if (branchData[searchCode]) {
-        console.log('一致する支社データが見つかりました:', branchData[searchCode]);
-        document.getElementById('branch-code').querySelector('span').textContent = branchData[searchCode].branchCode;
-        document.getElementById('branch-name').querySelector('span').textContent = branchData[searchCode].branchName;
+    if (branchData[formattedCode]) {
+        console.log('一致する支社データが見つかりました:', branchData[formattedCode]);
+        document.getElementById('branch-code').querySelector('span').textContent = branchData[formattedCode].branchCode;
+        document.getElementById('branch-name').querySelector('span').textContent = branchData[formattedCode].branchName;
     } else {
         console.log('一致する支社データが見つかりませんでした');
         document.getElementById('branch-code').querySelector('span').textContent = '該当なし';
@@ -104,6 +103,10 @@ document.getElementById('copy-button').addEventListener('click', function() {
     }, function(err) {
         console.error('コピーに失敗しました: ', err);
     });
+});
+
+document.getElementById('admin-login-button').addEventListener('click', function() {
+    window.location.href = 'login.html';
 });
 
 window.onscroll = function() {
