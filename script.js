@@ -121,3 +121,28 @@ window.onscroll = function() {
 document.getElementById("scroll-to-top").onclick = function() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 };
+
+// ログイン状態をチェックし、ログアウトボタンの表示を制御する関数
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const logoutButton = document.getElementById('logout-button');
+    const adminLoginButton = document.getElementById('admin-login-button');
+
+    if (isLoggedIn) {
+        logoutButton.style.display = 'inline-block';
+        adminLoginButton.style.display = 'none';
+    } else {
+        logoutButton.style.display = 'none';
+        adminLoginButton.style.display = 'inline-block';
+    }
+}
+
+// ログアウト処理
+document.getElementById('logout-button').addEventListener('click', function() {
+    localStorage.removeItem('isLoggedIn');
+    checkLoginStatus();
+    alert('ログアウトしました。');
+});
+
+// ページ読み込み時にログイン状態をチェック
+document.addEventListener('DOMContentLoaded', checkLoginStatus);
